@@ -211,6 +211,9 @@
 
     <!-- Load and execute javascript code used only in this page -->
     <script src="{{ asset('vendor/admin') }}/js/pages/ecomOrders.js"></script>
+
+    @include('sweetalert::alert')
+
     <script>
         $(function() {
             EcomOrders.init();

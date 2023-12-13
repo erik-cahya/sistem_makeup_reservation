@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->string('customer_name');
+            $table->string('email');
             $table->string('no_telp');
             $table->dateTime('booking_date');
             $table->string('alamat');

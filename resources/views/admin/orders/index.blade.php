@@ -2,6 +2,7 @@
 @section('page_content')
     <div id="page-content">
 
+
         <!-- Quick Stats -->
         <div class="row text-center">
             <div class="col-sm-6 col-lg-3">
@@ -40,10 +41,6 @@
             </div>
         </div>
         <!-- END Quick Stats -->
-
-        <!-- All Orders Block -->
-        <div class="block full">
-            <!-- All Orders Title -->
             <div class="block-title">
                 <div class="block-options pull-right">
                     <a href="javascript:void(0)" class="btn btn-alt btn-sm btn-default" data-toggle="tooltip"

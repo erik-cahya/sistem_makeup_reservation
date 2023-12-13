@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomerModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -34,8 +36,18 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        CustomerModel::create([
+            'id_user' => Auth::user()->id,
+            'customer_name' => $request->customer_name,
+            'email' => $request->email,
+            'no_telp' => $request->no_telp,
+            'booking_date' => date('Y-m-d', (strtotime($request->date_booking))),
+            'alamat' => $request->alamat,
+            'status' => 'customer'
+        ]);
+        return redirect('/booking')->with('success', 'Data Berhasil Disimpan');
     }
+
 
     /**
      * Display the specified resource.

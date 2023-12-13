@@ -37,11 +37,21 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="example-text-input">Nama Customer</label>
                             <div class="col-md-9">
-                                <input type="text" id="example-text-input" name="name" class="form-control"
+                                <input type="text" id="example-text-input" name="customer_name" class="form-control"
                                     placeholder="Text">
                                 <span class="help-block">This is a help text</span>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="example-text-input">No Telp</label>
+                            <div class="col-md-9">
+                                <input type="text" id="example-text-input" name="no_telp" class="form-control"
+                                    placeholder="Text">
+                                <span class="help-block">This is a help text</span>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="example-email-input">Email Input</label>
                             <div class="col-md-9">
