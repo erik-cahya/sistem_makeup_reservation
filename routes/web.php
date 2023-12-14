@@ -25,5 +25,5 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::resource('/orders', OrderController::class);
-Route::resource('/booking', BookingController::class);
+Route::resource('/orders', OrderController::class)->middleware(['auth']);
+Route::resource('/booking', BookingController::class)->middleware(['auth']);

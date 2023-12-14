@@ -16,15 +16,15 @@
 
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="{{ asset('vendor/admin') }}/img/favicon.png">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon57.png" sizes="57x57">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon72.png" sizes="72x72">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon76.png" sizes="76x76">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon114.png" sizes="114x114">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon120.png" sizes="120x120">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon144.png" sizes="144x144">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon152.png" sizes="152x152">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon180.png" sizes="180x180">
+    <link rel="shortcut icon" href="img/favicon.png">
+    <link rel="apple-touch-icon" href="img/icon57.png" sizes="57x57">
+    <link rel="apple-touch-icon" href="img/icon72.png" sizes="72x72">
+    <link rel="apple-touch-icon" href="img/icon76.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="img/icon114.png" sizes="114x114">
+    <link rel="apple-touch-icon" href="img/icon120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="img/icon144.png" sizes="144x144">
+    <link rel="apple-touch-icon" href="img/icon152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="img/icon180.png" sizes="180x180">
     <!-- END Icons -->
 
     <!-- Stylesheets -->
@@ -45,44 +45,6 @@
 
     <!-- Modernizr (browser feature detection library) -->
     <script src="{{ asset('vendor/admin') }}/js/vendor/modernizr.min.js"></script>
-
-
-
-
-
-    <!-- Icons -->
-    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="{{ asset('vendor/admin') }}/img/favicon.png">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon57.png" sizes="57x57">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon72.png" sizes="72x72">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon76.png" sizes="76x76">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon114.png" sizes="114x114">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon120.png" sizes="120x120">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon144.png" sizes="144x144">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon152.png" sizes="152x152">
-    <link rel="apple-touch-icon" href="{{ asset('vendor/admin') }}/img/icon180.png" sizes="180x180">
-    <!-- END Icons -->
-
-    <!-- Stylesheets -->
-    <!-- Bootstrap is included in its original form, unaltered -->
-    <link rel="stylesheet" href="{{ asset('vendor/admin') }}/css/bootstrap.min.css">
-
-    <!-- Related styles of various icon packs and plugins -->
-    <link rel="stylesheet" href="{{ asset('vendor/admin') }}/css/plugins.css">
-
-    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
-    <link rel="stylesheet" href="{{ asset('vendor/admin') }}/css/main.css">
-
-    <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
-
-    <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
-    <link rel="stylesheet" href="{{ asset('vendor/admin') }}/css/themes.css">
-    <!-- END Stylesheets -->
-
-    <!-- Modernizr (browser feature detection library) -->
-    <script src="{{ asset('vendor/admin') }}/js/vendor/modernizr.min.js"></script>
-
-
 </head>
 
 <body>
@@ -123,10 +85,10 @@
     <!-- END Page Wrapper -->
 
     <!-- Scroll to top link, initialized in js/app.js - scrollToTop() -->
-    <a href="#" id="to-top"><i class="fa fa-angle-double-up"></i></a>
+    {{-- <a href="#" id="to-top"><i class="fa fa-angle-double-up"></i></a> --}}
 
     <!-- User Settings, modal which opens from Settings link (found in top right user menu) and the Cog link (found in sidebar user info) -->
-    <div id="modal-user-settings" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    {{-- <div id="modal-user-settings" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -200,8 +162,14 @@
                 <!-- END Modal Body -->
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- END User Settings -->
+
+
+    @yield('modals')
+
+
+
 
     <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
     <script src="{{ asset('vendor/admin') }}/js/vendor/jquery.min.js"></script>
@@ -209,16 +177,13 @@
     <script src="{{ asset('vendor/admin') }}/js/plugins.js"></script>
     <script src="{{ asset('vendor/admin') }}/js/app.js"></script>
 
+
     <!-- Load and execute javascript code used only in this page -->
-    <script src="{{ asset('vendor/admin') }}/js/pages/ecomOrders.js"></script>
+    @yield('page_js')
+
 
     @include('sweetalert::alert')
 
-    <script>
-        $(function() {
-            EcomOrders.init();
-        });
-    </script>
 </body>
 
 </html>

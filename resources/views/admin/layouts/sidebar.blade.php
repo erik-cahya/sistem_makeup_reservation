@@ -4,8 +4,9 @@
         <!-- Sidebar Content -->
         <div class="sidebar-content">
             <!-- Brand -->
-            <a href="index.html" class="sidebar-brand">
-                <i class="gi gi-flash"></i><span class="sidebar-nav-mini-hide"><strong>Pro</strong>UI</span>
+            <a href="index.html" class="sidebar-brand" style="font-size: 12px">
+                <i class="gi gi-flash"></i><span class="sidebar-nav-mini-hide"><strong>Komala Santika</strong>
+                    Makeup</span>
             </a>
             <!-- END Brand -->
 
@@ -18,7 +19,7 @@
                     </a>
                 </div>
 
-                <div class="sidebar-user-name">Client</div>
+                <div class="sidebar-user-name">{{ Auth::user()->name }}</div>
 
                 <div class="sidebar-user-links">
                     <a href="page_ready_user_profile.html" data-toggle="tooltip" data-placement="bottom"
@@ -32,8 +33,8 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <a href="{{ route('logout') }}" data-toggle="tooltip" data-placement="bottom" title="Logout"><i
-                                class="gi gi-exit"></i></a>
-
+                                class="gi gi-exit"></i>
+                        </a>
                         <button type="submit"><i class="gi gi-exit"></i></button>
                         <form>
                 </div>
@@ -61,10 +62,10 @@
                             <a href="page_ecom_dashboard.html">Dashboard</a>
                         </li>
                         <li>
-                            <a href="page_ecom_orders.html" class=" active">Orders</a>
+                            <a href="/orders" class=" active">Orders</a>
                         </li>
                         <li>
-                            <a href="page_ecom_order_view.html">Order View</a>
+                            <a href="/booking">Booking</a>
                         </li>
                         <li>
                             <a href="page_ecom_products.html">Products</a>

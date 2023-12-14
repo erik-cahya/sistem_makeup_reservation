@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomerModel;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,7 +14,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('admin.orders.index');
+
+        $data['orders'] = CustomerModel::get();
+
+        return view('admin.orders.index', $data);
     }
 
     /**
@@ -79,6 +83,8 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // dd($id);
+        CustomerModel::destroy($id);
+        return redirect('/orders')->with('success', 'Data Berhasil Dihapus');
     }
 }

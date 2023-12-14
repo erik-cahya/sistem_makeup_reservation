@@ -36,14 +36,17 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         CustomerModel::create([
             'id_user' => Auth::user()->id,
             'customer_name' => $request->customer_name,
+            'paket' => $request->wedding_paket,
             'email' => $request->email,
             'no_telp' => $request->no_telp,
             'booking_date' => date('Y-m-d', (strtotime($request->date_booking))),
+            'booking_time' => $request->booking_time,
             'alamat' => $request->alamat,
-            'status' => 'customer'
+            'status' => 'pending'
         ]);
         return redirect('/booking')->with('success', 'Data Berhasil Disimpan');
     }
