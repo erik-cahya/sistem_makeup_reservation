@@ -14,7 +14,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-
+        $data['count_customer_pending'] = CustomerModel::where('status', 'pending')->count();
+        $data['count_customer'] = CustomerModel::count();
         $data['orders'] = CustomerModel::get();
 
         return view('admin.orders.index', $data);
@@ -60,7 +61,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -72,7 +73,11 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        CustomerModel::find($id)->update([
+            'status' => $request->status
+        ]);
+        return redirect('/orders')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**

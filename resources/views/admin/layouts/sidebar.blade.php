@@ -62,10 +62,10 @@
                             <a href="page_ecom_dashboard.html">Dashboard</a>
                         </li>
                         <li>
-                            <a href="/orders" class=" active">Orders</a>
+                            <a href="/orders" class="{{ request()->segment(1) == 'orders' ? 'active' : '' }}">Orders</a>
                         </li>
                         <li>
-                            <a href="/booking">Booking</a>
+                            <a href="/booking" class="{{ request()->segment(1) == 'booking' ? 'active' : '' }}">Booking</a>
                         </li>
                         <li>
                             <a href="page_ecom_products.html">Products</a>

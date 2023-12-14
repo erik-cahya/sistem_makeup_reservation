@@ -4,38 +4,23 @@
 
         <!-- Quick Stats -->
         <div class="row text-center">
-            <div class="col-sm-6 col-lg-3">
-                <a href="page_ecom_product_edit.html" class="widget widget-hover-effect2">
-                    <div class="widget-extra themed-background-success">
-                        <h4 class="widget-content-light"><strong>Add New</strong> Product</h4>
-                    </div>
-                    <div class="widget-extra-full"><span class="h2 text-success animation-expandOpen"><i
-                                class="fa fa-plus"></i></span></div>
-                </a>
-            </div>
-            <div class="col-sm-6 col-lg-3">
+
+            <div class="col-sm-6 col-lg-6">
                 <a href="javascript:void(0)" class="widget widget-hover-effect2">
                     <div class="widget-extra themed-background-danger">
-                        <h4 class="widget-content-light"><strong>Out of</strong> Stock</h4>
+                        <h4 class="widget-content-light"><strong>Total Customer</strong> Pending</h4>
                     </div>
-                    <div class="widget-extra-full"><span class="h2 text-danger animation-expandOpen">71</span></div>
+                    <div class="widget-extra-full"><span
+                            class="h2 text-danger animation-expandOpen">{{ $count_customer_pending }}</span></div>
                 </a>
             </div>
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-sm-6 col-lg-6">
                 <a href="javascript:void(0)" class="widget widget-hover-effect2">
                     <div class="widget-extra themed-background-dark">
-                        <h4 class="widget-content-light"><strong>Top</strong> Sellers</h4>
+                        <h4 class="widget-content-light"><strong>Total</strong> Customer</h4>
                     </div>
-                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen">20</span></div>
-                </a>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <a href="javascript:void(0)" class="widget widget-hover-effect2">
-                    <div class="widget-extra themed-background-dark">
-                        <h4 class="widget-content-light"><strong>All</strong> Products</h4>
-                    </div>
-                    <div class="widget-extra-full"><span class="h2 themed-color-dark animation-expandOpen">4.982</span>
-                    </div>
+                    <div class="widget-extra-full"><span
+                            class="h2 themed-color-dark animation-expandOpen">{{ $count_customer }}</span></div>
                 </a>
             </div>
         </div>
@@ -61,6 +46,7 @@
                         <th>Customer Name</th>
                         <th class="text-right hidden-xs">Alamat</th>
                         <th class="hidden-xs text-center">Tanggal & Jam Booking</th>
+                        <th class="hidden-xs text-center">Paket</th>
                         <th class="hidden-xs">Status</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -72,12 +58,14 @@
                                     href="page_ecom_product_edit.html"><strong>{{ $loop->iteration }}</strong></a></td>
                             <td><a href="page_ecom_product_edit.html">{{ $ord->customer_name }}</a></td>
                             <td class="text-right hidden-xs"><strong>{{ $ord->alamat }}</strong></td>
-                            <td class="hidden-xs text-center">{{ $ord->booking_date }} |
+                            <td class="hidden-xs text-center">{{ date('d-m-Y', strtotime($ord->booking_date)) }} |
                                 <strong>{{ $ord->booking_time }}</strong>
+                            </td>
+                            <td class="hidden-xs text-center">{{ $ord->paket }}
                             </td>
                             <td class="hidden-xs">
                                 <span
-                                    class="label label-{{ $ord->status === 'pending' ? 'warning' : 'danger' }}">Pending</span>
+                                    class="label label-{{ $ord->status === 'pending' ? 'warning' : ($ord->status === 'terima' ? 'success' : 'danger') }}">{{ $ord->status }}</span>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-xs">
@@ -128,8 +116,11 @@
 
                     <!-- Modal Body -->
                     <div class="modal-body">
-                        <form action="index.html" method="post" enctype="multipart/form-data"
-                            class="form-horizontal form-bordered" onsubmit="return false;">
+                        <form action="/orders/{{ $ord->id }}" method="post" enctype="multipart/form-data"
+                            class="form-horizontal form-bordered">
+                            @method('PUT')
+                            @csrf
+
                             <fieldset>
                                 <legend>Customer Info</legend>
                                 <div class="form-group">
@@ -142,42 +133,51 @@
                                     <label class="col-md-4 control-label" for="user-settings-email">Email</label>
                                     <div class="col-md-8">
                                         <input type="email" id="user-settings-email" name="user-settings-email"
-                                            class="form-control" value="admin@example.com">
+                                            class="form-control" value="{{ $ord->email }}" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="user-settings-email">Paket</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="user-settings-email" name="user-settings-email"
+                                            class="form-control" value="{{ $ord->paket }}" readonly>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="val_skill">Best Skill <span
-                                            class="text-danger">*</span></label>
-                                    <div class="col-md-6">
-                                        <select id="val_skill" name="val_skill" class="form-control">
-                                            <option value="">Please select</option>
-                                            <option value="html">HTML</option>
-                                            <option value="css">CSS</option>
-                                            <option value="javascript">Javascript</option>
-                                            <option value="php">PHP</option>
-                                            <option value="mysql">MySQL</option>
-                                        </select>
+                                    <label class="col-md-4 control-label" for="example-datepicker">Datepicker</label>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="example-datepicker3" name="date_booking"
+                                            class="form-control input-datepicker" data-date-format="dd-mm-yyyy"
+                                            placeholder="dd-mm-yyyy"
+                                            value="{{ date('d-m-Y', strtotime($ord->booking_date)) }}" readonly>
+                                    </div>
+                                    <div class="col-md-4 ">
+                                        <input type="text" id="example-datepicker3" name="date_booking"
+                                            class="form-control input-datepicker" data-date-format="dd-mm-yyyy"
+                                            placeholder="dd-mm-yyyy" value="{{ $ord->booking_time }}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="example-textarea-input">Alamat</label>
+                                    <div class="col-md-8">
+                                        <textarea id="example-textarea-input" name="alamat" rows="9" class="form-control" placeholder="Content.."
+                                            readonly>{{ $ord->alamat }}</textarea>
                                     </div>
                                 </div>
                             </fieldset>
                             <fieldset>
-                                <legend>Password Update</legend>
+                                <legend>Accept Orders</legend>
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label" for="user-settings-password">New
-                                        Password</label>
-                                    <div class="col-md-8">
-                                        <input type="password" id="user-settings-password" name="user-settings-password"
-                                            class="form-control" placeholder="Please choose a complex one..">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="user-settings-repassword">Confirm New
-                                        Password</label>
-                                    <div class="col-md-8">
-                                        <input type="password" id="user-settings-repassword"
-                                            name="user-settings-repassword" class="form-control"
-                                            placeholder="..and confirm it!">
+                                    <label class="col-md-4 control-label" for="val_skill">Accept Order</label>
+                                    <div class="col-md-6">
+                                        <select id="val_skill" name="status" class="form-control">
+                                            <option value="{{ $ord->status }}">Please select</option>
+                                            <option value="terima">Terima</option>
+                                            <option value="pending">Pending</option>
+                                            <option value="tolak">Tolak</option>
+                                        </select>
                                     </div>
                                 </div>
                             </fieldset>
