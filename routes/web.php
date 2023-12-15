@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,4 @@ require __DIR__ . '/auth.php';
 
 Route::resource('/orders', OrderController::class)->middleware(['auth']);
 Route::resource('/booking', BookingController::class)->middleware(['auth']);
+Route::resource('/profile', ProfileController::class)->middleware('auth');

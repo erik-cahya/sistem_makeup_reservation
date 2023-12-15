@@ -55,7 +55,7 @@
                 <div class="block">
                     <!-- Orders Title -->
                     <div class="block-title">
-                        <h2><i class="fa fa-truck"></i> <strong>Orders</strong> (4)</h2>
+                        <h2><i class="fa fa-truck"></i> <strong>Orders</strong></h2>
                     </div>
                     <!-- END Orders Title -->
 
@@ -65,20 +65,25 @@
 
                             @foreach ($data_orders as $orders)
                                 <tr>
-                                    <td class="text-center" style="width: 100px;"><a
-                                            href="page_ecom_order_view.html"><strong>{{ $loop->iteration }}</strong></a>
+                                    <td class="text-center" style="width: 30px;">
+                                        <a href="page_ecom_order_view.html"><strong>{{ $loop->iteration }}</strong></a>
                                     </td>
-                                    <td class="hidden-xs" style="width: 15%;"><a
-                                            href="javascript:void(0)">{{ $orders->customer_name }}</a>
+                                    <td>
+                                        <a href="javascript:void(0)">{{ $orders->customer_name }}</a>
                                     </td>
-                                    <td class="text-right hidden-xs" style="width: 15%;">
+
+                                    <td class="text-center" style="width: 15%;">
                                         <strong>{{ $orders->no_telp }}</strong>
                                     </td>
-                                    <td><span class="label label-warning">{{ $orders->status }}</span></td>
-                                    <td class="hidden-xs">{{ $orders->paket }}</td>
-                                    <td class="hidden-xs text-center">{{ date('d-m-Y', strtotime($orders->booking_date)) }}
+
+                                    <td><span
+                                            class="label label-{{ $orders->status === 'pending' ? 'warning' : ($orders->status === 'terima' ? 'success' : 'danger') }}">{{ $orders->status }}</span>
                                     </td>
-                                    <td class="text-center" style="width: 70px;">
+                                    <td>{{ $orders->paket }}</td>
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($orders->booking_date)) }}
+                                    </td>
+
+                                    <td class="text-center">
                                         <div class="btn-group btn-group-xs">
                                             <a href="page_ecom_order_view.html" data-toggle="tooltip" title=""
                                                 class="btn btn-default" data-original-title="View"><i
@@ -118,7 +123,7 @@
                                         <i class="fa fa-truck"></i>
                                     </div>
                                     <h4 class="text-left">
-                                        <strong>4</strong><br><small>Orders in Total</small>
+                                        <strong>{{ $count_orders }}</strong><br><small>Orders in Total</small>
                                     </h4>
                                 </div>
                             </a>
@@ -131,7 +136,7 @@
                                         <i class="fa fa-usd"></i>
                                     </div>
                                     <h4 class="text-left text-success">
-                                        <strong>$ 2.125,00</strong><br><small>Orders Value</small>
+                                        <strong>{{ $count_orders_terima }}</strong><br><small>Booking Diterima</small>
                                     </h4>
                                 </div>
                             </a>
@@ -144,7 +149,7 @@
                                         <i class="fa fa-shopping-cart"></i>
                                     </div>
                                     <h4 class="text-left text-warning">
-                                        <strong>3</strong> ($ 517,00)<br><small>Products in Cart</small>
+                                        <strong>{{ $count_orders_pending }}</strong><br><small>Booking Pending</small>
                                     </h4>
                                 </div>
                             </a>
@@ -152,11 +157,11 @@
                         <div class="col-md-6">
                             <a href="javascript:void(0)" class="widget widget-hover-effect2 themed-background-muted-light">
                                 <div class="widget-simple">
-                                    <div class="widget-icon pull-right themed-background-info">
+                                    <div class="widget-icon pull-right themed-background-danger">
                                         <i class="fa fa-group"></i>
                                     </div>
-                                    <h4 class="text-left text-info">
-                                        <strong>2</strong><br><small>Referred Members</small>
+                                    <h4 class="text-left text-danger">
+                                        <strong>{{ $count_orders_tolak }}</strong><br><small>Booking Ditolak</small>
                                     </h4>
                                 </div>
                             </a>
