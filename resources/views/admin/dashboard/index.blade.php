@@ -66,31 +66,37 @@
                             @foreach ($data_orders as $orders)
                                 <tr>
                                     <td class="text-center" style="width: 30px;">
-                                        <a href="page_ecom_order_view.html"><strong>{{ $loop->iteration }}</strong></a>
+                                        <strong>{{ $loop->iteration }}</strong>
                                     </td>
                                     <td>
-                                        <a href="javascript:void(0)">{{ $orders->customer_name }}</a>
+                                        {{ $orders->customer_name }}
                                     </td>
-
                                     <td class="text-center" style="width: 15%;">
                                         <strong>{{ $orders->no_telp }}</strong>
-                                    </td>
-
-                                    <td><span
-                                            class="label label-{{ $orders->status === 'pending' ? 'warning' : ($orders->status === 'terima' ? 'success' : 'danger') }}">{{ $orders->status }}</span>
                                     </td>
                                     <td>{{ $orders->paket }}</td>
                                     <td class="text-center">{{ date('d-m-Y', strtotime($orders->booking_date)) }}
                                     </td>
-
+                                    <td>
+                                        <span
+                                            class="label label-{{ $orders->status === 'pending' ? 'warning' : ($orders->status === 'terima' ? 'success' : 'danger') }}">{{ $orders->status }}</span>
+                                    </td>
                                     <td class="text-center">
                                         <div class="btn-group btn-group-xs">
                                             <a href="page_ecom_order_view.html" data-toggle="tooltip" title=""
                                                 class="btn btn-default" data-original-title="View"><i
                                                     class="fa fa-eye"></i></a>
-                                            <a href="javascript:void(0)" data-toggle="tooltip" title=""
-                                                class="btn btn-xs btn-danger" data-original-title="Delete"><i
-                                                    class="fa fa-times"></i></a>
+
+                                            <form name="myForm" method="POST" action="/dashboard/{{ $orders->id }}"
+                                                style="display: inline">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <button class="btn btn-danger btn-xs " type="submit"
+                                                    onclick="return confirm('Yakin Ingin Menghapus Data Paket ?')">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </form>
+
                                         </div>
                                     </td>
                                 </tr>

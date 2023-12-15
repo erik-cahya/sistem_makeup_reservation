@@ -21,14 +21,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-
 require __DIR__ . '/auth.php';
 
 Route::resource('/orders', OrderController::class)->middleware(['auth']);
 Route::resource('/booking', BookingController::class)->middleware(['auth']);
 Route::resource('/profile', ProfileController::class)->middleware('auth');
+Route::resource('/dashboard', DashboardController::class)->middleware('auth');

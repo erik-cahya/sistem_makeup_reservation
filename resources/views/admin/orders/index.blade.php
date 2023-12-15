@@ -74,11 +74,6 @@
                                         class="btn btn-default"><i class="fa fa-cogs"
                                             onclick="$('#modal-order-setting-{{ $ord->id }}').modal('show');"></i></a>
 
-
-                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-                                    <link rel="stylesheet" type="text/css"
-                                        href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
-
                                     <form name="myForm" method="POST" action="/orders/{{ $ord->id }}"
                                         style="display: inline">
                                         {{ csrf_field() }}

@@ -75,12 +75,12 @@ class ProfileController extends Controller
         // dd($request->all());
 
         if ($request->password === null) {
-            User::where('id', $id)->update([
+            User::find($id)->update([
                 'name' => $request->name,
                 'email' => $request->email
             ]);
         } else {
-            User::where('id', $id)->update([
+            User::find($id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->password)
