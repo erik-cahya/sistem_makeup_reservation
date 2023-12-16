@@ -46,12 +46,10 @@ class BookingController extends Controller
             'booking_date' => date('Y-m-d', (strtotime($request->date_booking))),
             'booking_time' => $request->booking_time,
             'alamat' => $request->alamat,
-            'status' => 'pending'
+            'status' => 'pending',
         ]);
-        return redirect('/booking')->with('success', 'Data Berhasil Disimpan');
+        return redirect('/dashboard')->with('success', 'Data Berhasil Disimpan');
     }
-
-
     /**
      * Display the specified resource.
      *

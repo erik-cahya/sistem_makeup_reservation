@@ -16,8 +16,15 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $data['data_profile'] = User::where('id', Auth()->user()->id)->get();
-        return view('admin.profile.index', $data);
+        if (request()->segment(1) == 'profile') {
+            $data['data_profile'] = User::where('id', Auth()->user()->id)->get();
+            return view('admin.profile.index', $data);
+        } else {
+            $data['count_customer'] = User::count();
+            $data['orders'] = User::get();
+
+            return view('admin.account.index', $data);
+        }
     }
 
     /**
@@ -27,7 +34,8 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        // dd('tambah data account');
+        return view('admin.account.add-account');
     }
 
     /**
@@ -38,7 +46,14 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'status' => $request->status,
+        ]);
+        return redirect('/account/create')->with('success', 'Account Berhasil Ditambahkan');
     }
 
     /**
@@ -98,6 +113,7 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+        return redirect('/account')->with('success', 'Data Berhasil Dihapus');
     }
 }

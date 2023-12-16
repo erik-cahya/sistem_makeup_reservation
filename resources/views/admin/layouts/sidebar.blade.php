@@ -54,9 +54,12 @@
                             class="gi gi-shopping_cart sidebar-nav-icon"></i><span
                             class="sidebar-nav-mini-hide">Booking</span></a>
                     <ul>
-                        <li>
-                            <a href="/orders" class="{{ request()->segment(1) == 'orders' ? 'active' : '' }}">Orders</a>
-                        </li>
+                        @if (Auth::user()->status == 'admin')
+                            <li>
+                                <a href="/orders"
+                                    class="{{ request()->segment(1) == 'orders' ? 'active' : '' }}">Orders</a>
+                            </li>
+                        @endif
                         <li>
                             <a href="/booking"
                                 class="{{ request()->segment(1) == 'booking' ? 'active' : '' }}">Booking</a>
@@ -70,8 +73,28 @@
                         <a href="javascript:void(0)" data-toggle="tooltip"
                             title="Create the most amazing pages with the widget kit!">
                             <i class="gi gi-lightbulb"></i></a></span>
-                    <span class="sidebar-header-title">Widget Kit</span>
+                    <span class="sidebar-header-title">Profile Account</span>
                 </li>
+
+                @if (Auth::user()->status == 'admin')
+                    <li class="{{ request()->segment(1) == 'account' ? 'active' : '' }}">
+                        <a href="#" class="sidebar-nav-menu"><i
+                                class="fa fa-angle-left sidebar-nav-indicator sidebar-nav-mini-hide"></i><i
+                                class="gi gi-group sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">User
+                                Account</span></a>
+                        <ul>
+                            <li>
+                                <a href="/account" class="{{ request()->segment(2) == '' ? 'active' : '' }}">User
+                                    Account</a>
+                            </li>
+                            <li>
+                                <a href="/account/create"
+                                    class="{{ request()->segment(2) == 'create' ? 'active' : '' }}">Add
+                                    Account</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
                 <li class='{{ request()->segment(1) == 'profile' ? 'active' : '' }}'>
                     <a href="/profile"><i class="gi gi-user sidebar-nav-icon"></i><span
                             class="sidebar-nav-mini-hide">Profile</span></a>

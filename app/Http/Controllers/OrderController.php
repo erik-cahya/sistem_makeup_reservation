@@ -73,9 +73,16 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+
         CustomerModel::find($id)->update([
-            'status' => $request->status
+            'customer_name' => $request->customer_name,
+            'paket' => $request->paket,
+            'email' => $request->email,
+            'no_telp' => $request->no_telp,
+            'booking_date' => date('Y-m-d', strtotime($request->date_booking)),
+            'booking_time' => $request->time_booking,
+            'alamat' => $request->alamat,
+            'status' => $request->status == null ? CustomerModel::where('id', $id)->value('status') : $request->status
         ]);
         return redirect('/orders')->with('success', 'Data Berhasil Disimpan');
     }

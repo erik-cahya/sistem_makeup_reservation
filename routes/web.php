@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing-page.index');
 });
 
 require __DIR__ . '/auth.php';
@@ -26,4 +26,5 @@ require __DIR__ . '/auth.php';
 Route::resource('/orders', OrderController::class)->middleware(['auth']);
 Route::resource('/booking', BookingController::class)->middleware(['auth']);
 Route::resource('/profile', ProfileController::class)->middleware('auth');
+Route::resource('/account', ProfileController::class)->middleware('auth');
 Route::resource('/dashboard', DashboardController::class)->middleware('auth');
