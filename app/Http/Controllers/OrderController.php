@@ -73,7 +73,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        // dd($request->all());
         CustomerModel::find($id)->update([
             'customer_name' => $request->customer_name,
             'paket' => $request->paket,
@@ -84,7 +84,7 @@ class OrderController extends Controller
             'alamat' => $request->alamat,
             'status' => $request->status == null ? CustomerModel::where('id', $id)->value('status') : $request->status
         ]);
-        return redirect('/orders')->with('success', 'Data Berhasil Disimpan');
+        return redirect('/dashboard')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**

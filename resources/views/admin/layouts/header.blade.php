@@ -31,19 +31,19 @@
             <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
                 <li class="dropdown-header text-center">Account</li>
                 <li>
-                    <a href="page_ready_user_profile.html">
+                    <a href="/profile">
                         <i class="fa fa-user fa-fw pull-right"></i>
                         Profile
-                    </a>
-                    <!-- Opens the user settings modal that can be found at the bottom of each page (page_footer.html in PHP version) -->
-                    <a href="#modal-user-settings" data-toggle="modal">
-                        <i class="fa fa-cog fa-fw pull-right"></i>
-                        Settings
                     </a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="login.html"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+
+                    <form method="POST" id="logoutForm" action="{{ route('logout') }}" style="display: inline">
+                        @csrf
+                        <a href="javascript:void(0)" onclick="document.getElementById('logoutForm').submit()"><i
+                                class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                        <form>
                 </li>
 
             </ul>

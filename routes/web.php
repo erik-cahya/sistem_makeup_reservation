@@ -23,8 +23,8 @@ Route::get('/', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::resource('/orders', OrderController::class)->middleware(['auth']);
+Route::resource('/orders', OrderController::class)->middleware(['IsAdmin', 'auth']);
 Route::resource('/booking', BookingController::class)->middleware(['auth']);
 Route::resource('/profile', ProfileController::class)->middleware('auth');
-Route::resource('/account', ProfileController::class)->middleware('auth');
+Route::resource('/account', ProfileController::class)->middleware(['auth', 'IsAdmin']);
 Route::resource('/dashboard', DashboardController::class)->middleware('auth');

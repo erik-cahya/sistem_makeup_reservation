@@ -274,10 +274,10 @@
                                         <div class="col-md-6">
                                             <select id="val_skill" name="status" class="form-control">
                                                 <option value="{{ $ord->status }}">Please select</option>
-                                                <option value="tolak" {{ $ord->status == 'terima' ? 'selected' : '' }}>
-                                                <option value="terima">Terima</option>
-                                                <option value="tolak" {{ $ord->status == 'pending' ? 'selected' : '' }}>
-                                                <option value="pending">Pending</option>
+                                                <option value="terima" {{ $ord->status == 'terima' ? 'selected' : '' }}>
+                                                    Terima</option>
+                                                <option value="pending" {{ $ord->status == 'pending' ? 'selected' : '' }}>
+                                                    Pending</option>
                                                 <option value="tolak" {{ $ord->status == 'tolak' ? 'selected' : '' }}>
                                                     Tolak</option>
                                             </select>
