@@ -39,11 +39,8 @@
                 <li class="divider"></li>
                 <li>
 
-                    <form method="POST" id="logoutForm" action="{{ route('logout') }}" style="display: inline">
-                        @csrf
-                        <a href="javascript:void(0)" onclick="document.getElementById('logoutForm').submit()"><i
-                                class="fa fa-ban fa-fw pull-right"></i> Logout</a>
-                        <form>
+                    <a href="javascript:void(0)" onclick="document.getElementById('logoutForm').submit()"><i
+                            class="fa fa-ban fa-fw pull-right"></i> Logout</a>
                 </li>
 
             </ul>
