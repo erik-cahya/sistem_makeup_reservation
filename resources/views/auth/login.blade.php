@@ -14,6 +14,9 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
 
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
     <!-- Icons -->
     <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
     <link rel="shortcut icon" href="img/favicon.png">

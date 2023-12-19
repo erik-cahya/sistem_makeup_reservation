@@ -4,11 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Haarino - Barber and Salon HTML Template - Home One</title>
+    <title>Komala Santika Makeup</title>
     <meta name="author" content="Vecuro">
     <meta name="description" content="Haarino - Barber and Salon HTML Template">
     <meta name="keywords" content="Haarino - Barber and Salon HTML Template" />
     <meta name="robots" content="INDEX,FOLLOW">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
