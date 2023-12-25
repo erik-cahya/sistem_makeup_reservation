@@ -3,10 +3,38 @@
     <!-- Page content -->
     <div id="page-content">
 
+        @if (Auth::user()->status === 'client')
+            <div class="row">
+                <div class="col-md-12">
+
+                    @foreach ($data_orders_diterima as $terima)
+                        @if ($terima->status_pembayaran == 'Verifikasi Pembayaran')
+                            <div class="alert alert-info alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="fa fa-check-circle"></i> Pemberitahuan</h4>
+                                Pembayaran paket booking <a href="javascript:void(0)"
+                                    class="alert-link">{{ $terima->customer_name }} :
+                                    {{ $terima->paket }}</a> sedang di verifikasi oleh admin!
+                            </div>
+                        @elseif ($terima->status_pembayaran == 'Menunggu Pembayaran')
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert"
+                                    aria-hidden="true">&times;</button>
+                                <h4><i class="fa fa-check-circle"></i> Pemberitahuan</h4>
+                                Data Booking <a href="javascript:void(0)" class="alert-link">{{ $terima->customer_name }} :
+                                    {{ $terima->paket }}</a> telah
+                                diterima, silahkan lakukan pembayaran DP, dan kirim bukti pembayaran!
+                            </div>
+                        @endif
+                    @endforeach
+
+                </div>
+            </div>
+        @endif
 
         <!-- Customer Content -->
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <!-- Customer Info Block -->
                 <div class="block">
                     <!-- Customer Info Title -->
@@ -50,7 +78,7 @@
                 <!-- END Customer Info Block -->
 
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <!-- Orders Block -->
                 <div class="block">
                     <!-- Orders Title -->
@@ -60,7 +88,19 @@
                     <!-- END Orders Title -->
 
                     <!-- Orders Content -->
-                    <table class="table table-bordered table-striped table-vcenter">
+                    <table class="table table-bordered table-striped table">
+                        <tr>
+                            <th class="text-center" style="width: 70px;">No</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">No Telp</th>
+                            <th class="text-center">Nama Paket</th>
+                            <th class="text-center">Tanggal Order</th>
+                            <th class="text-center">Status Booking</th>
+                            <th class="text-center">Status Pembayaran</th>
+                            <th class="text-center">Status Order</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+
                         <tbody>
 
                             @foreach ($data_orders as $orders)
@@ -69,34 +109,105 @@
                                         <strong>{{ $loop->iteration }}</strong>
                                     </td>
                                     <td>
+                                        {{-- {{ $orders->id_customers }} --}}
                                         {{ $orders->customer_name }}
                                     </td>
-                                    <td class="text-center" style="width: 15%;">
+                                    <td class="text-center" style="width: ;">
                                         <strong>{{ $orders->no_telp }}</strong>
                                     </td>
+
+                                    {{-- Nama Paket --}}
                                     <td>{{ $orders->paket }}</td>
-                                    <td class="text-center">{{ date('d-m-Y', strtotime($orders->booking_date)) }}
-                                    </td>
-                                    <td>
-                                        <span
-                                            class="label label-{{ $orders->status === 'pending' ? 'warning' : ($orders->status === 'terima' ? 'success' : 'danger') }}">{{ $orders->status }}</span>
-                                    </td>
+
+                                    {{-- Tanggal Order --}}
+                                    <td class="text-center">{{ date('d-m-Y', strtotime($orders->booking_date)) }}</td>
+
+                                    {{-- Status Booking --}}
                                     <td class="text-center">
+                                        <span
+                                            class="label label-{{ $orders->status_booking === 'Pending' ? 'warning' : ($orders->status_booking === 'Terima' ? 'success' : 'danger') }}">{{ $orders->status_booking }}</span>
+                                    </td>
+
+                                    {{-- Status Pembayaran --}}
+                                    <td width="200px">
+
+                                        @if ($orders->status_booking === 'Terima')
+                                            @if (Auth::user()->status === 'client')
+                                                <a href="javascript:void(0)" data-toggle="tooltip" title="Upload Pembayaran"
+                                                    class="btn btn-primary btn-xs"><i class="fa fa-upload"
+                                                        onclick="$('#modal-upload-pembayaran-{{ $orders->id_customers }}').modal('show');"></i>
+                                                </a>
+                                            @else
+                                                <a href="javascript:void(0)" data-toggle="tooltip"
+                                                    title="Verifikasi Pembayaran" class="btn btn-primary btn-xs"><i
+                                                        class="fa fa-cogs"
+                                                        onclick="$('#modal-upload-pembayaran-{{ $orders->id_customers }}').modal('show');"></i>
+                                                </a>
+                                            @endif
+                                        @endif
+
+
+                                        <span
+                                            class="label 
+                                        
+                                        @if ($orders->status_pembayaran == 'Menunggu Pembayaran') {{ 'label-warning' }}
+                                        @elseif ($orders->status_pembayaran === 'Menunggu Approve') {{ 'label-warning' }}
+                                        @elseif ($orders->status_pembayaran === 'Verifikasi Pembayaran') {{ 'label-info' }}
+                                        @elseif ($orders->status_pembayaran === 'Pembayaran DP') {{ 'label-primary' }}
+                                        @elseif ($orders->status_pembayaran === 'Pembayaran Lunas') {{ 'label-success' }}
+                                        @else {{ 'label-danger' }} @endif">
+                                            {{ $orders->status_pembayaran }}
+                                        </span>
+                                    </td>
+
+                                    {{-- Status Orders --}}
+                                    <td class="text-center">
+                                        <span
+                                            class="label 
+                                        @if ($orders->status_pembayaran == 'Menunggu Approve') {{ 'label-warning' }}
+                                        @elseif ($orders->status_pembayaran === 'Menunggu Pembayaran') {{ 'label-warning' }} 
+                                        @elseif ($orders->status_pembayaran === 'Verifikasi Pembayaran') {{ 'label-info' }}
+                                        @elseif ($orders->status_pembayaran === 'Pembayaran Lunas') {{ 'label-success' }} 
+                                        @elseif ($orders->status_pembayaran === 'Pembayaran DP') {{ 'label-warning' }} 
+                                        @else {{ 'label-danger' }} @endif">
+                                            {{ $orders->status_order }}
+                                        </span>
+                                    </td>
+
+                                    {{-- Action --}}
+                                    <td class="text-center" width="80px">
                                         <div class="btn-group btn-group-xs">
 
                                             <a href="javascript:void(0)" data-toggle="tooltip" title="Edit"
                                                 class="btn btn-default"><i class="fa fa-cogs"
-                                                    onclick="$('#modal-order-setting-{{ $orders->id }}').modal('show');"></i></a>
+                                                    onclick="$('#modal-order-setting-{{ $orders->id_customers }}').modal('show');"></i></a>
 
-                                            <form name="myForm" method="POST" action="/dashboard/{{ $orders->id }}"
-                                                style="display: inline">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                <button class="btn btn-danger btn-xs " type="submit"
-                                                    onclick="return confirm('Yakin Ingin Menghapus Data Paket ?')">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
+                                            @if ($orders->status_booking === 'Pending')
+                                                <form name="myForm" method="POST"
+                                                    action="/dashboard/{{ $orders->id_customers }}"
+                                                    style="display: inline">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('DELETE') }}
+                                                    <button class="btn btn-danger btn-xs " type="submit"
+                                                        data-toggle="tooltip" title="Delete"
+                                                        onclick="return confirm('Yakin Ingin Menghapus Data Paket ?')">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
+
+                                            @if (Auth::user()->status === 'admin' && $orders->status_order === 'On Progress')
+                                                <form method="POST"
+                                                    action="/orders/orderComplete/{{ $orders->id_customers }}"
+                                                    style="display: inline">
+                                                    {{ csrf_field() }}
+                                                    <button class="btn btn-success btn-xs " type="submit"
+                                                        data-toggle="tooltip" title="Order Selesai  "
+                                                        onclick="return confirm('Anda yakin bahwa orderan ini telah selesai ?')">
+                                                        <i class="fa fa-check"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
 
                                         </div>
                                     </td>
@@ -124,7 +235,8 @@
 
                         <div class="col-md-6">
                             <!-- Quick Stats Content -->
-                            <a href="javascript:void(0)" class="widget widget-hover-effect2 themed-background-muted-light">
+                            <a href="javascript:void(0)"
+                                class="widget widget-hover-effect2 themed-background-muted-light">
                                 <div class="widget-simple">
                                     <div class="widget-icon pull-right themed-background">
                                         <i class="fa fa-truck"></i>
@@ -137,7 +249,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <a href="javascript:void(0)" class="widget widget-hover-effect2 themed-background-muted-light">
+                            <a href="javascript:void(0)"
+                                class="widget widget-hover-effect2 themed-background-muted-light">
                                 <div class="widget-simple">
                                     <div class="widget-icon pull-right themed-background-success">
                                         <i class="fa fa-usd"></i>
@@ -150,7 +263,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <a href="javascript:void(0)" class="widget widget-hover-effect2 themed-background-muted-light">
+                            <a href="javascript:void(0)"
+                                class="widget widget-hover-effect2 themed-background-muted-light">
                                 <div class="widget-simple">
                                     <div class="widget-icon pull-right themed-background-warning">
                                         <i class="fa fa-shopping-cart"></i>
@@ -162,7 +276,8 @@
                             </a>
                         </div>
                         <div class="col-md-6">
-                            <a href="javascript:void(0)" class="widget widget-hover-effect2 themed-background-muted-light">
+                            <a href="javascript:void(0)"
+                                class="widget widget-hover-effect2 themed-background-muted-light">
                                 <div class="widget-simple">
                                     <div class="widget-icon pull-right themed-background-danger">
                                         <i class="fa fa-group"></i>
@@ -187,116 +302,25 @@
 @endsection
 
 @section('modals')
-    @foreach ($data_orders as $ord)
-        <div id="modal-order-setting-{{ $ord->id }}" class="modal fade" tabindex="-1" role="dialog"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header text-center">
-                        <h2 class="modal-title"><i class="fa fa-pencil"></i> Setting Orders</h2>
-                    </div>
-                    <!-- END Modal Header -->
+    {{-- Modal Setting Orders --}}
+    @include('admin.dashboard.modal_order_settings')
 
-                    <!-- Modal Body -->
-                    <div class="modal-body">
-                        <form action="/orders/{{ $ord->id }}" method="post" enctype="multipart/form-data"
-                            class="form-horizontal form-bordered">
-                            @method('PUT')
-                            @csrf
+    {{-- Modal Upload Pembayaran --}}
+    @include('admin.dashboard.modal_status_pembayaran_from')
 
-                            <fieldset>
-                                <legend>Customer Info</legend>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label">Nama Customer</label>
-                                    <div class="col-md-8">
-                                        <input type="customer_name" id="customer_name" name="customer_name"
-                                            class="form-control" value="{{ $ord->customer_name }}"
-                                            {{ Auth::user()->status == 'admin' ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="email">Email</label>
-                                    <div class="col-md-8">
-                                        <input type="email" id="email" name="email" class="form-control"
-                                            value="{{ $ord->email }}"
-                                            {{ Auth::user()->status == 'admin' ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="no_telp">No Telp</label>
-                                    <div class="col-md-8">
-                                        <input type="no_telp" id="no_telp" name="no_telp" class="form-control"
-                                            value="{{ $ord->no_telp }}"
-                                            {{ Auth::user()->status == 'admin' ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="paket">Paket</label>
-                                    <div class="col-md-8">
-                                        <input type="text" id="paket" name="paket" class="form-control"
-                                            value="{{ $ord->paket }}"
-                                            {{ Auth::user()->status == 'admin' ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
+    <script>
+        // untuk membuat preview gambar
+        function previewImage() {
+            const image = document.querySelector('#bukti_pembayaran');
+            const imgPreview = document.querySelector('.img-preview');
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="date_booking">Tanggal Booking</label>
-                                    <div class="col-md-4 ">
-                                        <input type="text" id="date_booking" name="date_booking"
-                                            class="form-control input-datepicker" data-date-format="dd-mm-yyyy"
-                                            placeholder="dd-mm-yyyy"
-                                            value="{{ date('d-m-Y', strtotime($ord->booking_date)) }}"
-                                            {{ Auth::user()->status == 'admin' ? 'readonly' : '' }}>
-                                    </div>
-                                    <div class="col-md-4 ">
-                                        <input type="text" id="example-datepicker3" name="time_booking"
-                                            class="form-control input-datepicker" data-date-format="dd-mm-yyyy"
-                                            placeholder="dd-mm-yyyy" value="{{ $ord->booking_time }}"
-                                            {{ Auth::user()->status == 'admin' ? 'readonly' : '' }}>
-                                    </div>
-                                </div>
+            imgPreview.style.display = 'block';
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
 
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label" for="example-textarea-input">Alamat</label>
-                                    <div class="col-md-8">
-                                        <textarea id="example-textarea-input" name="alamat" rows="9" class="form-control" placeholder="Content.."
-                                            {{ Auth::user()->status == 'admin' ? 'readonly' : '' }}>{{ $ord->alamat }}</textarea>
-                                    </div>
-                                </div>
-                            </fieldset>
-
-                            @if (Auth::user()->status == 'admin')
-                                <fieldset>
-                                    <legend>Accept Orders</legend>
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="val_skill">Accept Order</label>
-                                        <div class="col-md-6">
-                                            <select id="val_skill" name="status" class="form-control">
-                                                <option value="{{ $ord->status }}">Please select</option>
-                                                <option value="terima" {{ $ord->status == 'terima' ? 'selected' : '' }}>
-                                                    Terima</option>
-                                                <option value="pending" {{ $ord->status == 'pending' ? 'selected' : '' }}>
-                                                    Pending</option>
-                                                <option value="tolak" {{ $ord->status == 'tolak' ? 'selected' : '' }}>
-                                                    Tolak</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            @endif
-                            <div class="form-group form-actions">
-                                <div class="col-xs-12 text-right">
-                                    <button type="button" class="btn btn-sm btn-default"
-                                        data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-sm btn-primary">Save Changes</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- END Modal Body -->
-                </div>
-            </div>
-        </div>
-    @endforeach
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 @endsection

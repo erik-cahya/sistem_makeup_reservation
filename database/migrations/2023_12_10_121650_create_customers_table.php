@@ -20,10 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('paket');
             $table->string('email');
             $table->string('no_telp');
-            $table->date('booking_date');
-            $table->string('booking_time');
             $table->string('alamat');
-            $table->string('status');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

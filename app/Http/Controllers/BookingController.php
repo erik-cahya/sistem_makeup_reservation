@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingModel;
 use App\Models\CustomerModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,17 +38,29 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        CustomerModel::create([
+        $id_customers = CustomerModel::insertGetId([
             'id_user' => Auth::user()->id,
             'customer_name' => $request->customer_name,
             'paket' => $request->wedding_paket,
             'email' => $request->email,
             'no_telp' => $request->no_telp,
+            'alamat' => $request->alamat,
+        ]);
+
+        // dd($id_customers);
+
+        BookingModel::create([
+            'id_customers' => $id_customers,
+            'status_booking' => 'Pending',
+            'status_pembayaran' => 'Menunggu Approve',
+            'status_order' => 'Menunggu Approve',
             'booking_date' => date('Y-m-d', (strtotime($request->date_booking))),
             'booking_time' => $request->booking_time,
-            'alamat' => $request->alamat,
-            'status' => 'pending',
+            'bukti_pembayaran' => null
         ]);
+
+        // dd($id_customers);
+
         return redirect('/dashboard')->with('success', 'Data Berhasil Disimpan');
     }
     /**

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingModel;
 use App\Models\CustomerModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -16,19 +18,28 @@ class DashboardController extends Controller
     public function index()
     {
         if (Auth::user()->status === 'admin') {
-
-            $data['data_orders'] = CustomerModel::get();
+            $data['data_orders'] = DB::table('customers')->join('bookings', 'bookings.id_customers', 'customers.id')->get();
             $data['count_orders'] = CustomerModel::count();
-            $data['count_orders_pending'] = CustomerModel::where('status', 'pending')->count();
-            $data['count_orders_terima'] = CustomerModel::where('status', 'terima')->count();
-            $data['count_orders_tolak'] = CustomerModel::where('status', 'tolak')->count();
+            $data['count_orders_pending'] = BookingModel::where('status_booking', 'pending')->count();
+            $data['count_orders_terima'] = BookingModel::where('status_booking', 'terima')->count();
+            $data['count_orders_tolak'] = BookingModel::where('status_booking', 'tolak')->count();
+
+            // dd($data['data_orders']);
         } else {
-            $data['data_orders'] = CustomerModel::where('id_user', Auth::user()->id)->get();
+
+            $data['data_orders'] = DB::table('customers')->join('bookings', 'bookings.id_customers', 'customers.id')->where('id_user', Auth::user()->id)->get();
+
+            $data['data_orders_diterima'] = DB::table('customers')->join('bookings', 'bookings.id_customers', 'customers.id')->where('id_user', Auth::user()->id)->where('status_booking', 'terima')->get();
+
+            // dd($data['data_orders_diterima']);
+
             $data['count_orders'] = CustomerModel::where('id_user', Auth::user()->id)->count();
-            $data['count_orders_pending'] = CustomerModel::where('id_user', Auth::user()->id)->where('status', 'pending')->count();
-            $data['count_orders_terima'] = CustomerModel::where('id_user', Auth::user()->id)->where('status', 'terima')->count();
-            $data['count_orders_tolak'] = CustomerModel::where('id_user', Auth::user()->id)->where('status', 'tolak')->count();
+            $data['count_orders_pending'] = DB::table('customers')->join('bookings', 'bookings.id_customers', 'customers.id')->where('id_user', Auth::user()->id)->where('status_booking', 'pending')->count();
+            $data['count_orders_terima'] = DB::table('customers')->join('bookings', 'bookings.id_customers', 'customers.id')->where('id_user', Auth::user()->id)->where('status_booking', 'terima')->count();
+            $data['count_orders_tolak'] = DB::table('customers')->join('bookings', 'bookings.id_customers', 'customers.id')->where('id_user', Auth::user()->id)->where('status_booking', 'tolak')->count();
         }
+
+        // dd($data['data_orders']);
         return view('admin.dashboard.index', $data);
     }
 

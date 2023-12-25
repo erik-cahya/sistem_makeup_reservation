@@ -4,15 +4,14 @@
 
         <!-- Quick Stats -->
         <div class="row text-center">
-
-
             <div class="col-sm-12 col-lg-12">
                 <a href="javascript:void(0)" class="widget widget-hover-effect2">
                     <div class="widget-extra themed-background-dark">
                         <h4 class="widget-content-light"><strong>Total</strong> Account</h4>
                     </div>
-                    <div class="widget-extra-full"><span
-                            class="h2 themed-color-dark animation-expandOpen">{{ $count_customer }}</span></div>
+                    <div class="widget-extra-full">
+                        <span class="h2 themed-color-dark animation-expandOpen">{{ $count_customer }}</span>
+                    </div>
                 </a>
             </div>
         </div>

@@ -38,7 +38,7 @@
                             <label class="col-md-3 control-label" for="example-text-input">Nama Customer</label>
                             <div class="col-md-9">
                                 <input type="text" id="example-text-input" name="customer_name" class="form-control"
-                                    placeholder="Text">
+                                    placeholder="Text" required>
                                 <span class="help-block">This is a help text</span>
                             </div>
                         </div>
@@ -46,8 +46,8 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="example-text-input">No Telp</label>
                             <div class="col-md-9">
-                                <input type="text" id="example-text-input" name="no_telp" class="form-control"
-                                    placeholder="Text">
+                                <input type="number" id="example-text-input" name="no_telp" class="form-control"
+                                    placeholder="Masukkan No Telepon Anda" required>
                                 <span class="help-block">This is a help text</span>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                             <label class="col-md-3 control-label" for="example-email-input">Email Input</label>
                             <div class="col-md-9">
                                 <input type="email" id="example-email-input" name="email" class="form-control"
-                                    placeholder="Enter Email">
+                                    placeholder="Enter Email" required>
                                 <span class="help-block">Please enter your email</span>
                             </div>
                         </div>
