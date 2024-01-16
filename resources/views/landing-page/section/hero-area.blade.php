@@ -3,7 +3,7 @@
         data-navprevnext="true">
         <!-- Slide 1-->
         <div class="ls-slide" data-ls="duration:12000; transition2d:5; kenburnsscale:1.2;">
-            <img src="{{ asset('vendor/landing_page') }}/assets/img/hero/hero-1-1.jpg" class="ls-bg" alt="bgimg" />
+            <img src="{{ asset('img/hero.jpg') }}" class="ls-bg" alt="bgimg" />
             <p style="top:100px; left:50%; background-size:inherit; background-position:inherit; font-size:24px; width:825px; height:825px; border-radius:100%; background-color:rgba(0,0,0,0.50);"
                 class="ls-l hero-morp ls-hide-tablet ls-hide-phone" data-ls="static:forever;"></p>
             <p style="top:50px; left:50%; background-size:inherit; background-position:inherit; font-size:24px; width:1000px; height:1000px; border-radius:100%; background-color:rgba(0,0,0,0.50);"

@@ -14,11 +14,11 @@
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="about.html">About</a>
+                    <a href="about">About</a>
                 </li>
 
                 <li>
-                    <a href="#contact">Contact</a>
+                    <a href="#services">Services</a>
                 </li>
             </ul>
         </div>
@@ -67,12 +67,12 @@
                                         <a href="/">Home</a>
                                     </li>
                                     <li>
-                                        <a href="about.html">About</a>
+                                        <a href="#about">About</a>
                                     </li>
 
 
                                     <li>
-                                        <a href="#contact">Contact</a>
+                                        <a href="#services">Services</a>
                                     </li>
                                 </ul>
                             </nav>

@@ -93,9 +93,9 @@
     {{-- Teams --}}
     @include('landing-page.section.team-area')
     {{-- Testimonial --}}
-    @include('landing-page.section.testimonial-area')
+    {{-- @include('landing-page.section.testimonial-area') --}}
     {{-- Contact --}}
-    @include('landing-page.section.contact-area')
+    {{-- @include('landing-page.section.contact-area') --}}
     {{-- Footer --}}
     @include('landing-page.section.footer-area')
 

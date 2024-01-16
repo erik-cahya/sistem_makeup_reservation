@@ -8,16 +8,12 @@
                 <div class="row">
                     <div class="col-sm-6 col-lg-12">
                         <div class="video-box position-relative mb-10">
-                            <img src="{{ asset('vendor/landing_page') }}/assets/img/about/about-2-1.jpg" alt="About Image"
-                                class="w-100">
-                            <a href="https://www.youtube.com/watch?v=_sI_Ps7JSEk"
-                                class="popup-video play-btn position-center"><i class="fas fa-play"></i></a>
+                            <img src="{{ asset('img/paket_10.png') }}" alt="About Image" class="w-100">
                         </div>
                     </div>
                     <div class="col-sm-6 col-lg-12">
                         <div class="img-box">
-                            <img src="{{ asset('vendor/landing_page') }}/assets/img/about/about-2-2.jpg"
-                                alt="About Image" class="w-100">
+                            <img src="{{ asset('img/paket_11.png') }}" alt="About Image" class="w-100">
                         </div>
                     </div>
                 </div>
